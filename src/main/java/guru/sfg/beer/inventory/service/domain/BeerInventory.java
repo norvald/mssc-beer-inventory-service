@@ -16,12 +16,17 @@
  */
 package guru.sfg.beer.inventory.service.domain;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.Entity;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -43,6 +48,9 @@ public class BeerInventory extends BaseEntity{
         this.quantityOnHand = quantityOnHand;
     }
 
+    @Convert(converter = UuidConverter.class)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(length = 40, columnDefinition = "varchar(40)")
     private UUID beerId;
     private String upc;
     private Integer quantityOnHand = 0;

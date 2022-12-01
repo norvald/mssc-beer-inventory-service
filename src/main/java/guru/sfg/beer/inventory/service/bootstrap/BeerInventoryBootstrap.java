@@ -37,6 +37,7 @@ public class BeerInventoryBootstrap implements CommandLineRunner {
     }
 
     private void loadInitialInv() {
+        log.debug("Inserting inventory");
         beerInventoryRepository.save(BeerInventory
                 .builder()
                 .beerId(BEER_1_UUID)
