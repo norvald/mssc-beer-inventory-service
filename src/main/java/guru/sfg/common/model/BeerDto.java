@@ -39,7 +39,7 @@ public class BeerDto implements Serializable {
     private String beerName;
 
     @NotNull
-    private guru.sfg.beer.inventory.service.web.model.BeerStyleEnum beerStyle;
+    private BeerStyleEnum beerStyle;
 
     @NotNull
     private String upc;

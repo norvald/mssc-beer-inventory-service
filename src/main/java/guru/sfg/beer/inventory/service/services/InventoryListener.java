@@ -1,10 +1,10 @@
 package guru.sfg.beer.inventory.service.services;
 
-import guru.sfg.common.events.NewInventoryEvent;
 import guru.sfg.beer.inventory.service.config.JmsConfig;
 import guru.sfg.beer.inventory.service.domain.BeerInventory;
 import guru.sfg.beer.inventory.service.repositories.BeerInventoryRepository;
-import guru.sfg.beer.inventory.service.web.model.BeerDto;
+import guru.sfg.common.events.NewInventoryEvent;
+import guru.sfg.common.model.BeerDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
