@@ -37,6 +37,19 @@ public class AllocationServiceImpl implements AllocationService {
         return totalOrdered.get() == totalAllocated.get();
     }
 
+    @Override
+    public void deallocateOrder(BeerOrderDto beerOrderDto) {
+        beerOrderDto.getBeerOrderLines().forEach(beerOrderLineDto -> {
+            BeerInventory beerInventory = BeerInventory.builder()
+                    .beerId(beerOrderLineDto.getBeerId())
+                    .upc(beerOrderLineDto.getUpc())
+                    .quantityOnHand(beerOrderLineDto.getQuantityAllocated())
+                    .build();
+            BeerInventory savedInventory = beerInventoryRepository.save(beerInventory);
+            log.debug("Saved inventory for beer upc: " + savedInventory.getUpc() + " inventory id: " + savedInventory.getId());
+        });
+    }
+
     private void allocateBeerOrderLine(BeerOrderLineDto beerOrderLine) {
         List<BeerInventory> beerInventoryList = beerInventoryRepository.findByUpc(beerOrderLine.getUpc());
         beerInventoryList.forEach(beerInventory -> {
@@ -46,12 +59,12 @@ public class AllocationServiceImpl implements AllocationService {
             int qtyToAllocate = orderQty - allocatedQty;
 
             if (inventory >= qtyToAllocate) {
-                inventory = inventory -qtyToAllocate;
+                inventory = inventory - qtyToAllocate;
                 beerOrderLine.setQuantityAllocated(orderQty);
                 beerInventory.setQuantityOnHand(inventory);
 
                 beerInventoryRepository.save(beerInventory);
-            } else if(inventory > 0) {
+            } else if (inventory > 0) {
                 beerOrderLine.setQuantityAllocated(allocatedQty + inventory);
                 beerInventory.setQuantityOnHand(0);
 
