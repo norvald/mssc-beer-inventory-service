@@ -15,7 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package guru.sfg.common.model;
+package guru.sfg.brewery.model;
 
 public enum  BeerOrderStatusEnum {
     NEW, VALIDATION_PENDING, VALIDATED, VALIDATION_EXCEPTION,

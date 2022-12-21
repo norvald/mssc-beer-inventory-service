@@ -1,4 +1,4 @@
-package guru.sfg.common.model;
+package guru.sfg.brewery.model;
 
 public enum BeerOrderEventEnum {
     VALIDATE_ORDER, VALIDATION_PASSED,VALIDATION_FAILED,

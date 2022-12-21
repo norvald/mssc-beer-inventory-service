@@ -1,9 +1,9 @@
 package guru.sfg.beer.inventory.service.services;
 
 import guru.sfg.beer.inventory.service.config.JmsConfig;
-import guru.sfg.common.events.AllocateOrderRequest;
-import guru.sfg.common.events.AllocateOrderResult;
-import guru.sfg.common.model.BeerOrderDto;
+import guru.sfg.brewery.model.events.AllocateOrderRequest;
+import guru.sfg.brewery.model.events.AllocateOrderResult;
+import guru.sfg.brewery.model.BeerOrderDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +38,6 @@ public class AllocateOrderListener {
             log.error("Allocation failed: "+beerOrderDto.getId()+ ", " +e.getMessage());
             builder.allocationError(true);
         }
-        jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_RESULT_QUEUE, builder.build());
+        jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE, builder.build());
     }
 }
