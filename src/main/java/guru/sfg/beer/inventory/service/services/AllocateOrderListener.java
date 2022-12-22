@@ -34,10 +34,11 @@ public class AllocateOrderListener {
             } else {
                 builder.pendingInventory(true);
             }
+            builder.allocationError(false);
         } catch(Exception e) {
             log.error("Allocation failed: "+beerOrderDto.getId()+ ", " +e.getMessage());
             builder.allocationError(true);
         }
-        jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE, builder.build());
+        jmsTemplate.convertAndSend(JmsConfig.ALLOCATE_ORDER_RESPONSE_QUEUE, builder.build());
     }
 }
